@@ -1,0 +1,157 @@
+<style>
+    #place-order-btn{
+      margin-inline-end: 70px;
+      width:170px;
+        
+    }
+     #quantity-button{
+        margin-block-start: 8px;
+        margin-inline-start: 7px;
+        font-size: 20px;
+        width:40px;
+        background-color:black;
+
+}
+#minus-button{
+        margin-block-start: 8px;
+        margin-inline-end: 7px;
+        width:40px;
+        font-size: 21px;
+        background-color:black;
+}
+span{
+    margin-block-start: 20px;
+    font-size: 18px;
+    
+}
+.total{
+    text-align: right;
+   margin-inline-end: 50px;
+   margin-block-start: 15px;
+   font-size: 25px;
+   font-weight: 500;
+   gap:30px;
+}
+.order{
+  float: right;
+  margin-block-end: 70px;
+   
+}
+
+#total{
+  float: left;
+  font-size: 25px;
+  font-weight: 500;
+  margin-inline-start: 50px;
+  margin-inline-end: 600px;
+  margin-block-end: 10px;
+  margin-block-start: 1px;
+
+
+}
+.fixed{
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    width:100%;
+    height:60px;
+    color:#eee;
+    background-color:black;
+}
+</style>
+<section>
+    <div class="container">
+        
+        <table class="table mt-5">
+            <thead>
+
+               <tr>
+
+                    <th class="col">Item</th>
+                    <th class="col">Name</th>
+                    <th>Price</th>
+                    <th class="col">Quantity</th>
+
+               </tr>
+
+            </thead>
+            <tbody>
+                 {{#each products}}
+                <tr>
+
+                
+                    <td><img src="/product-images/{{this.product._id}}.jpg" alt="" width="70px" height="70px"></td>
+                    <td>{{this.product.Name}}</td>
+                    <td>Rs.{{this.product.Price}}</td>
+                
+      <td>
+         <a href="/cart" class="cart-item-count  text-white btn " id="minus-button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)" >-</a>
+         <span id="{{this.product._id}}">{{this.quantity}}</span>
+         <a href="/cart" class="cart-item-count  text-white btn" id="quantity-button" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</a>
+
+                    </td>
+                    <td>
+                        <a href="/delete-cartpro/{{this.product._id}},{{this._id}}" class="btn btn-danger">Remove</a>
+                        
+                           
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div class="fixed">
+            <h4 class="total"><span id="total">TOTAL</span>RS.{{total}}</h4>
+             
+        <hr>
+        </div>
+        <span><a href="/place-order" id="place-order-btn" class="order btn btn-success">Place Order</a></span>
+
+        
+        
+        
+    
+    
+       
+
+
+
+
+    </div>
+</section>
+<script>
+    
+    function changeQuantity(cartId,proId,count){
+        let quantity=parseInt(document.getElementById(proId).innerHTML)
+         count=parseInt(count)
+
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                cart:cartId,
+                product:proId,
+                count:count,
+                quantity:quantity
+                
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                     if({{cartCount}}==1){
+                         alert('cart is empty')
+                         location.href='/'
+                     }else{
+                     alert("product removed from cart")
+                       location.reload()
+                     }
+                   }else{
+                    document.getElementById(proId).innerHTML=quantity+count
+                    }
+            }
+        })
+    }
+  
+    
+    
+
+    
+</script>

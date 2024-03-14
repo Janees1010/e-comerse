@@ -1,0 +1,34 @@
+body{
+    background-color:white;
+}
+.navbar{
+    
+    
+
+}
+.nav-container{
+    
+}
+.icon{
+    font-size: 20px;
+    padding: 3px;
+    
+}
+#brand-name{
+    font-size: 30px;
+    font-family: sans-serif;
+    
+    
+}
+#nav-link{
+
+    margin-inline-start: 30px;
+ 
+    
+}
+#nav-link-2{
+    margin-inline-end:40px;
+    margin-inline-start:40px;
+}
+
+    

@@ -1,0 +1,55 @@
+
+<style>
+    body{
+       background-color:white;
+    }
+    section{
+        height:500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    input{
+        width:400px;
+        height:50px;
+        border:1px solid red;
+        border-radius: 8px;
+        
+    }
+    label{
+        font-size: 20px;;
+    }
+     a{
+        text-decoration: none;
+        margin-inline-end: 130px;
+    }
+</style>
+ <section>
+ <h2>Login</h2>
+    <form action="/login" method="post" >
+
+      
+   
+        <label for="">Username</label><br>
+        <input type="email" name="Email" placeholder="Username"><br><br>
+ 
+         <label for="">Password</label><br>
+        <input type="password" name="Password" placeholder="password"><br><br>
+
+        {{#if loginerr}}
+          <p class="text-danger">{{loginerr}}</p>
+          
+    {{/if}}
+        
+
+        <a href="/signup">create new account ?</a>
+       
+
+
+       
+
+        <button type="submit" class="btn btn-danger">Login</button>
+
+    </form>
+</section>

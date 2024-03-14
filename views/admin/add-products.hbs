@@ -1,0 +1,35 @@
+
+<style>
+    body{
+        background-color: white;
+    }
+    section{
+        margin-inline-start: 150px;
+        margin-block-start: 60px;
+        padding:20px;
+    }
+</style>
+
+<section>
+    <h1>Add product</h1>
+    <form action="/admin/add-products" method="post" enctype="multipart/form-data">
+        <label for="">Name</label><br>
+        <input type="text" name="Name"><br>
+
+         <label for="">Category</label><br>
+        <input type="text" name="Category"><br>
+
+
+        <label for="">Price</label><br>
+        <input type="price" name="Price"><br>
+
+        <label for="">Description</label><br>
+        <input type="text" name="Description"><br>
+
+        <label for="">Image</label><br>
+        <input type="file" name="image"><br><br>
+
+        <button type="submit" class="btn btn-danger">Submit</button>
+
+    </form>
+</section>

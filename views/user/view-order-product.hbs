@@ -1,0 +1,23 @@
+
+<style>
+   img{
+    width:170px;
+    height:200px;
+    padding:10px;
+
+  }
+</style>
+<div class="container">
+<div class="card mt-5" style="width: 15rem; height:22rem;">
+  {{#each product}}
+  <img src="/product-images/{{this.product._id}}.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-text">{{this.product.Name}}</h5>
+    
+    <h5 class="card-title">Quantity:{{this.quantity}}</h5>
+    
+    <a href="#" class="btn btn-primary mt-3">Go somewhere</a>
+  </div>
+  {{/each}}
+</div>
+</div>

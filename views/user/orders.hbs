@@ -1,0 +1,156 @@
+
+
+<style>
+    h2{
+        margin-block-start: 90px;
+        margin-inline-start: 300px;
+        margin-block-end: 40px;
+    }
+    form{
+        width: 100vw;
+        height:100vh;
+        display: flex;
+        justify-content: center;
+    }
+    .form-div{
+        margin-inline-start: 20px;
+        margin-inline-end: 100px;
+    }
+    .checkout{
+        width:350px;
+        height:250px;
+        border: 3px solid grey;
+        padding-inline-start: 20px;
+
+    }
+    .checkout label{
+        font-size: 18px;
+        padding: 5px;
+    }
+    #checkout-form{
+      height: 100%;
+      width:100%;
+    }
+    h3{
+        font-size: 22px;
+        text-align: center;
+        margin-block-start: 10px;
+    }
+    .form-div input{
+        width:400px;
+        height: 35px;
+        margin-block-end: 15px;
+    }
+    #user-input{
+        visibility: hidden;
+    }
+    #btn{
+        margin-inline-start: 200px;
+    }
+</style>
+
+
+ <h2>Enter Delivery Status</h2>
+<div class="container">
+   
+    <form id="checkout-form">
+    <div class="form-div">
+     
+        <label>Address</label><br>
+        <input type="text" name="Address" ><br>
+
+        <label>Pincode</label><br>
+        <input type="number" name="Pincode" ><br>
+
+        <label>Mobile</label><br>
+        <input type="number" name="Mobile" ><br>
+
+        <input type="text" name="userId" id="user-input" value="{{user._id}}">
+
+       
+
+      
+    </div>
+    <div class="checkout">
+        <h3>Total Amount:Rs.{{total}}</h3>
+        <hr>
+        <h5>Payment method</h5>
+        <input type="radio" name="payment" value="cod"><label>COD</label><br>
+        <input type="radio" name="payment" value="online payment"><label>Online Payment</label><br>
+          <button type="submit" class="btn btn-primary mt-4"id="btn" > Checkout</button>
+               
+      </div>
+    </form>
+    
+</div>
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    $("#checkout-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:('/place-order'),
+            method:'post',
+            data:$('#checkout-form').serialize(),
+            success:(response)=>{
+                if(response.codSuccess){
+                    location.href='/order-success'
+                }else{
+                   razorpayPaymment(response)
+                  
+                }
+            }
+
+        })
+    })
+
+    function razorpayPaymment(order){
+          var options = {
+    "key": "rzp_test_nW4WGNyGimlCpI", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Janees enterprices",
+    "description": "Test Transaction",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        
+        verifyPayment(response,order)
+        
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#ff0000"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.open();
+
+}
+     function verifyPayment(payment,order){
+        $.ajax({
+            url:"/verify-Payment",
+             method:'post',
+            data:{
+                payment,
+                order
+            },
+            success:(response)=>{
+                  if(response.status){
+                    location.href='/order-success'
+                  }else{
+                    alert('payment failed')
+                  }
+            }
+        })
+    }
+  </script>

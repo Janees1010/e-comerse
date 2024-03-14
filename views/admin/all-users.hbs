@@ -1,0 +1,57 @@
+
+<style>
+    .heading:{
+        text-align: center;
+        padding:40px;
+    }
+
+    .container{
+        display:flex;
+    }
+</style>
+
+
+
+<section>
+
+    <h1 class="heading text-grey p-4 text-center text-capitalize">  login Users Information </h1>
+
+
+
+   
+ <table class="table">
+     
+  <thead>
+    <tr>
+      
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      
+        
+    </tr>
+    
+  </thead>
+    
+   
+  <tbody>
+    {{#each user}}
+     <tr>
+        <td class="text-4 text-capitalize">{{this.Name}}</td>
+        <td class="text-capitalize">{{this.Email}}</td>
+
+    </tr>
+        
+   {{/each}}
+        
+  </tbody>
+   
+  
+</table>
+
+
+</section>
+  
+
+
+
+

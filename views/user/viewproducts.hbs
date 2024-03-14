@@ -1,0 +1,82 @@
+<style>
+  img{
+    width:170px;
+    height:200px;
+    padding:10px;
+
+  }
+  .parent{
+    display:flex;
+    flex-wrap: wrap;
+    gap:40px;
+    justify-content: center;
+  }
+   button{
+    border-radius: 0.7em;
+    border:1px solid #ffffff;
+    background: red;
+    font-size: 12px;
+    font-weight: bold;
+    padding:1em 5em;
+    transition: transform 80ms ease-in-out;
+    cursor: pointer;
+    margin:10px 0;
+    color:#eee;
+  }
+  button:active{
+    transform:scale(0.95);
+  }
+  button:focus{
+    outline: none;
+  }
+</style>
+<section>
+  
+  
+  
+        
+        
+           
+          <div class="parent mt-3">
+             {{#each products}}
+            <div class="card  " style="width: 15rem; height:22rem;">
+    <img src="/product-images/{{this._id}}.jpg"class="card-img-top " alt="..."  >
+    <div class="card-body  ">
+    <h5 class="card-title">{{this.Name}}</h5>
+     <p class="text-danger">RS.{{this.Price}} </p>
+      
+    
+    <button onclick="addTocart('{{this._id}}')"    class="">Add to cart</button>
+
+    </div>
+    
+    </div>
+      {{/each}}
+     </div>
+  
+  
+</section>
+
+<script src="/javascripts/script.js"></script>
+<script>
+     function addTocart(Id){
+      $.ajax({
+        url:'/add-toCart/'+Id,
+        method:'get',
+        success:(response)=>{
+           
+           location.href='/'
+           
+        }
+
+      })
+
+   }
+</script>
+
+    
+
+    
+   
+
+
